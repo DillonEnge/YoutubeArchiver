@@ -3,14 +3,16 @@
 * Create a daily recurring archive generator of the youtube trending page including all the necessary data for reconstruction.
 
 ## Planning
+### Data currently present in each date entry
+* title
+* views
+* duration
+* description
+* user
+* video link
+
 ### Data to be included in each date entry
-* ~~title~~
 * time posted
-* ~~views~~
-* ~~duration~~
-* ~~description~~
-* ~~user~~
-* ~~video link~~
 
 ### JSON structure
 ```json
@@ -19,15 +21,19 @@
         "videos": [
             {
                 "title": "example-title",
-                "time_posted": "example-time-posted",
                 "views": "example-views",
+                "time_posted": "example-time-posted",
+                "duration": "example-duration",
+                "description": "example-description",
                 "user": "example-user",
                 "link": "example-link"
             },
             {
                 "title": "example-title",
-                "time_posted": "example-time-posted",
                 "views": "example-views",
+                "time_posted": "example-time-posted",
+                "duration": "example-duration",
+                "description": "example-description",
                 "user": "example-user",
                 "link": "example-link"
             }
