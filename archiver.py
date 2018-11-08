@@ -15,6 +15,12 @@ class Archiver:
                             'videos': []
                         }
                     }, outfile, indent=4)
+        else:
+            archive = self.get_archive()
+            archive[ self.date_tag ] = {
+                'videos': []
+            }
+            self.write_archive(archive)
     
     def scrape_page(self):
         video_object = {}
@@ -29,9 +35,11 @@ class Archiver:
         for video in videos:
             video_object['user'] = self.endpoint + video.find(class_='yt-lockup-byline').contents[0]['href']
             description = video.find(class_='yt-lockup-description')
-
-            if type(description.contents[0]) == element.NavigableString:
-                video_object['description'] = description.contents[0]
+            if description:
+                if type(description.contents[0]) == element.NavigableString:
+                    video_object['description'] = description.contents[0]
+                else:
+                    video_object['description'] = 'None'
             else:
                 video_object['description'] = 'None'
 
