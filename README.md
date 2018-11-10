@@ -1,4 +1,22 @@
 # Youtube Archiver
+## Usage
+<b>terminal</b>
+```shell
+pip3 install -r requirements.txt
+
+touch main.py
+```
+<b>main.py</b>
+```python
+from archiver import Archiver
+
+archiver = Archiver()
+archiver.scrape_page()
+```
+<b>crontab</b>
+```bash
+0 12 * * * cd <working_dir> && python3 main.js >> log.txt
+```
 ## Goal
 * Create a daily recurring archive generator of the youtube trending page including all the necessary data for reconstruction.
 

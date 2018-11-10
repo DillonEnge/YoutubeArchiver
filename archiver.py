@@ -33,8 +33,11 @@ class Archiver:
 
         for video in videos:
             video_object = {}
+
             video_object['user'] = self.endpoint + video.find(class_='yt-lockup-byline').contents[0]['href']
+
             description = video.find(class_='yt-lockup-description')
+
             if description:
                 if type(description.contents[0]) == element.NavigableString:
                     video_object['description'] = description.contents[0]
@@ -57,7 +60,10 @@ class Archiver:
             video_object['duration'] = header.contents[1].contents[0][13:].replace('.', '')
             video_object['title'] = header.contents[0]['title']
             video_object['link'] = self.endpoint + header.contents[0]['href']
+
             self.append_video(video_object)
+
+        print('Successfully archived Youtube trending page for ' + self.date_tag)
 
     def append_video(self, video):
         archive = self.get_archive()
