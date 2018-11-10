@@ -23,7 +23,6 @@ class Archiver:
             self.write_archive(archive)
     
     def scrape_page(self):
-        video_object = {}
         page = requests.get(self.request_endpoint)
         soup = BeautifulSoup(page.text, 'html.parser')
 
@@ -33,6 +32,7 @@ class Archiver:
         videos = soup.find_all(class_='yt-lockup-dismissable')
 
         for video in videos:
+            video_object = {}
             video_object['user'] = self.endpoint + video.find(class_='yt-lockup-byline').contents[0]['href']
             description = video.find(class_='yt-lockup-description')
             if description:
@@ -43,7 +43,17 @@ class Archiver:
             else:
                 video_object['description'] = 'None'
 
-            video_object['view_count'] = video.find(class_='yt-lockup-meta-info').contents[1].contents[0].split(' views')[0]
+            if len(video.find(class_='yt-lockup-meta-info').contents) > 1:
+                #print(video_object['user'])
+                for elemStr in video.find(class_='yt-lockup-meta-info').contents:
+                    print(video.find(class_='yt-lockup-meta-info').contents[0].contents)
+                    if 'views' in elemStr.contents[0]:
+                        #print(elemStr)
+                        video_object['view_count'] = elemStr.contents[0].split(' views')[0]
+                if not video_object.__contains__('view_count'):
+                    video_object['view_count'] = 'None'
+            else:
+                video_object['view_count'] = 'None'
 
             header = video.find(class_='yt-lockup-title')
 
